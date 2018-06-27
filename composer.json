@@ -8,5 +8,16 @@
             "name": "Pawel Mysior",
             "email": "pawelmysior@gmail.com"
         }
+    ],
+    "require": {
+        "symfony/console": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "PawelMysior\\LaravelLocalize\\": "src/"
+        }
+    },
+    "bin": [
+        "laravel-localize"
     ]
 }

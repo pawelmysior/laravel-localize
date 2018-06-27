@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+$app = new Symfony\Component\Console\Application('Laravel Localize', '1.0.0');
+$command = new PawelMysior\LaravelLocalize\LocalizeCommand();
+
+$app->add($command);
+
+$app->setDefaultCommand($command->getName(), true);
+
+$app->run();
