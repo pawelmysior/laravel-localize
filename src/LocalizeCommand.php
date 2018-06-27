@@ -25,12 +25,18 @@ class LocalizeCommand extends Command
         }
 
         $languageFilesInstaller = new LanguageFilesInstaller($input->getArgument('lang'));
-        
+
+        $output->write('1. Creating the language directory...');
         $languageFilesInstaller->createLanguageDirectory();
-        
+        $output->writeln('<info> success</info>');
+
+        $output->write('2. Downloading the language files...');
         $languageFilesInstaller->downloadLanguageFiles();
-        
-        $output->writeln('<info>Success!</info>');
+        $output->writeln('<info> success</info>');
+
+        $output->writeLn('<info>Successfully installed the "' . $input->getArgument('lang') . '" language files!</info>');
+        $output->writeln('<info>Don\'t forget to change the value of the locale key in "config/app.php".</info>');
+        $output->writeln('<info>Happy coding!</info>');
     }
 
     protected function isLaravelApplication()
