@@ -1,0 +1,12 @@
+{
+    "name": "pawelmysior/laravel-localize",
+    "description": "Localize your Laravel application with a single command",
+    "keywords": ["laravel", "language", "localization"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pawel Mysior",
+            "email": "pawelmysior@gmail.com"
+        }
+    ]
+}
