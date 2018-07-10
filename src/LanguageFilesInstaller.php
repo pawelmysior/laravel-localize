@@ -18,6 +18,13 @@ class LanguageFilesInstaller
         $this->lang = $lang;
     }
 
+    public function languageExists()
+    {
+        $httpStatus = get_headers($this->getGithubRepositoryLanguageDirectoryPath() . '/' . self::FILES[0]. '.php')[0];
+        
+        return (bool)strpos($httpStatus, '200');
+    }
+
     public function createLanguageDirectory()
     {
         if (!file_exists($this->getLanguageDirectoryPath())) {

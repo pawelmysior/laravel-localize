@@ -26,6 +26,12 @@ class LocalizeCommand extends Command
 
         $languageFilesInstaller = new LanguageFilesInstaller($input->getArgument('lang'));
 
+        if (!$languageFilesInstaller->languageExists()) {
+            $output->writeLn('<error>Couldn\'t find "' . $input->getArgument('lang') . '" language files.</error>');
+
+            return 0;
+        }
+
         $output->write('1. Creating the language directory...');
         $languageFilesInstaller->createLanguageDirectory();
         $output->writeln('<info> success</info>');
