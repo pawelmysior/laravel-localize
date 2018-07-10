@@ -4,11 +4,11 @@ namespace PawelMysior\LaravelLocalize;
 
 class LanguageFilesInstaller
 {
-    const FILES = [
-        'auth',
-        'pagination',
-        'passwords',
-        'validation',
+    protected $files = [
+        'auth.php',
+        'pagination.php',
+        'passwords.php',
+        'validation.php',
     ];
     
     protected $lang;
@@ -16,13 +16,13 @@ class LanguageFilesInstaller
     public function __construct($lang)
     {
         $this->lang = $lang;
+        
+        $this->files[] = $lang . '.json';
     }
 
     public function languageExists()
     {
-        $httpStatus = get_headers($this->getGithubRepositoryLanguageDirectoryPath() . '/' . self::FILES[0]. '.php')[0];
-        
-        return (bool)strpos($httpStatus, '200');
+        return $this->fileExists($this->files[0]);
     }
 
     public function createLanguageDirectory()
@@ -34,26 +34,35 @@ class LanguageFilesInstaller
 
     public function downloadLanguageFiles()
     {
-        foreach (self::FILES as $file) {
+        foreach ($this->files as $file) {
             $this->downloadLanguageFile($file);
         }
     }
 
     protected function downloadLanguageFile($file)
     {
-        $contents = $this->getLanguageFileContents($file);
-        
-        $this->createLanguageFile($file, $contents);
+        if ($this->fileExists($file)) {
+            $contents = $this->getLanguageFileContents($file);
+
+            $this->createLanguageFile($file, $contents);
+        }
+    }
+
+    protected function fileExists($file)
+    {
+        $httpStatus = get_headers($this->getGithubRepositoryLanguageDirectoryPath() . '/' . $file)[0];
+
+        return (bool)strpos($httpStatus, '200');
     }
 
     protected function getLanguageFileContents($file)
     {
-        return file_get_contents($this->getGithubRepositoryLanguageDirectoryPath() . '/' . $file . '.php');
+        return file_get_contents($this->getGithubRepositoryLanguageDirectoryPath() . '/' . $file);
     }
 
     protected function createLanguageFile($file, $contents)
     {
-        file_put_contents($this->getLanguageDirectoryPath() . DIRECTORY_SEPARATOR . $file . '.php', $contents);
+        file_put_contents($this->getLanguageDirectoryPath() . DIRECTORY_SEPARATOR . $file, $contents);
     }
 
     protected function getGithubRepositoryLanguageDirectoryPath()
