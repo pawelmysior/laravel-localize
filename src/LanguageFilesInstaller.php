@@ -22,7 +22,7 @@ class LanguageFilesInstaller
 
     public function languageExists()
     {
-        return $this->fileExists($this->files[0]);
+        return $this->fileExists('/src/' . $this->lang . '/' . $this->files[0]);
     }
 
     public function createLanguageDirectory()
@@ -35,29 +35,29 @@ class LanguageFilesInstaller
     public function downloadLanguageFiles()
     {
         foreach ($this->files as $file) {
-            $this->downloadLanguageFile($file);
+            $this->downloadLanguageFile('/src/' . $this->lang . '/' . $file, $file);
         }
     }
 
-    protected function downloadLanguageFile($file)
+    protected function downloadLanguageFile($sourceFile, $destinationFile)
     {
-        if ($this->fileExists($file)) {
-            $contents = $this->getLanguageFileContents($file);
+        if ($this->fileExists($sourceFile)) {
+            $contents = $this->getLanguageFileContents($sourceFile);
 
-            $this->createLanguageFile($file, $contents);
+            $this->createLanguageFile($destinationFile, $contents);
         }
     }
 
     protected function fileExists($file)
     {
-        $httpStatus = get_headers($this->getGithubRepositoryLanguageDirectoryPath() . '/' . $file)[0];
+        $httpStatus = get_headers($this->getGithubRepositoryPath() . '/' . $file)[0];
 
         return (bool)strpos($httpStatus, '200');
     }
 
     protected function getLanguageFileContents($file)
     {
-        return file_get_contents($this->getGithubRepositoryLanguageDirectoryPath() . '/' . $file);
+        return file_get_contents($this->getGithubRepositoryPath() . '/' . $file);
     }
 
     protected function createLanguageFile($file, $contents)
@@ -65,9 +65,9 @@ class LanguageFilesInstaller
         file_put_contents($this->getLanguageDirectoryPath() . DIRECTORY_SEPARATOR . $file, $contents);
     }
 
-    protected function getGithubRepositoryLanguageDirectoryPath()
+    protected function getGithubRepositoryPath()
     {
-        return 'https://raw.githubusercontent.com/caouecs/Laravel-lang/master/src/' . $this->lang;
+        return 'https://raw.githubusercontent.com/caouecs/Laravel-lang/master';
     }
 
     protected function getLanguageDirectoryPath()
