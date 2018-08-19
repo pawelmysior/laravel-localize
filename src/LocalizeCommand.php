@@ -36,8 +36,12 @@ class LocalizeCommand extends Command
         $languageFilesInstaller->createLanguageDirectory();
         $output->writeln('<info> success</info>');
 
-        $output->write('2. Downloading the language files...');
-        $languageFilesInstaller->downloadLanguageFiles();
+        $output->write('2. Downloading the PHP language files...');
+        $languageFilesInstaller->downloadPhpLanguageFiles();
+        $output->writeln('<info> success</info>');
+
+        $output->write('3. Downloading the JSON language file...');
+        $languageFilesInstaller->downloadJsonLanguageFile();
         $output->writeln('<info> success</info>');
 
         $output->writeLn('<info>Successfully installed the "' . $input->getArgument('lang') . '" language files!</info>');

@@ -10,14 +10,12 @@ class LanguageFilesInstaller
         'passwords.php',
         'validation.php',
     ];
-    
+
     protected $lang;
-    
+
     public function __construct($lang)
     {
         $this->lang = $lang;
-        
-        $this->files[] = $lang . '.json';
     }
 
     public function languageExists()
@@ -32,11 +30,16 @@ class LanguageFilesInstaller
         }
     }
 
-    public function downloadLanguageFiles()
+    public function downloadPhpLanguageFiles()
     {
         foreach ($this->files as $file) {
             $this->downloadLanguageFile('/src/' . $this->lang . '/' . $file, $file);
         }
+    }
+
+    public function downloadJsonLanguageFile()
+    {
+        $this->downloadLanguageFile('/json/' . $this->lang . '.json', $this->lang . '.json');
     }
 
     protected function downloadLanguageFile($sourceFile, $destinationFile)
