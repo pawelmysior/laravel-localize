@@ -25,15 +25,15 @@ class LanguageFilesInstaller
 
     public function createLanguageDirectory()
     {
-        if (!file_exists($this->getLanguageDirectoryPath())) {
-            mkdir($this->getLanguageDirectoryPath(), 0777, true);
+        if (!file_exists($this->getSpecificLanguageDirectoryPath())) {
+            mkdir($this->getSpecificLanguageDirectoryPath(), 0777, true);
         }
     }
 
     public function downloadPhpLanguageFiles()
     {
         foreach ($this->files as $file) {
-            $this->downloadLanguageFile('/src/' . $this->lang . '/' . $file, $file);
+            $this->downloadLanguageFile('/src/' . $this->lang . '/' . $file, $this->lang . '/' . $file);
         }
     }
 
@@ -65,7 +65,7 @@ class LanguageFilesInstaller
 
     protected function createLanguageFile($file, $contents)
     {
-        file_put_contents($this->getLanguageDirectoryPath() . DIRECTORY_SEPARATOR . $file, $contents);
+        file_put_contents($this->getLanguagesDirectoryPath() . DIRECTORY_SEPARATOR . $file, $contents);
     }
 
     protected function getGithubRepositoryPath()
@@ -73,8 +73,13 @@ class LanguageFilesInstaller
         return 'https://raw.githubusercontent.com/caouecs/Laravel-lang/master';
     }
 
-    protected function getLanguageDirectoryPath()
+    protected function getSpecificLanguageDirectoryPath()
     {
-        return getcwd() . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . $this->lang;
+        return $this->getLanguagesDirectoryPath() . DIRECTORY_SEPARATOR . $this->lang;
+    }
+
+    protected function getLanguagesDirectoryPath()
+    {
+        return getcwd() . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'lang';
     }
 }
