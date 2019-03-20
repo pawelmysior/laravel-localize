@@ -36,7 +36,7 @@ The command will install the following files:
 * `resources/lang/de/pagination.php`
 * `resources/lang/de/passwords.php`
 * `resources/lang/de/validation.php`
-* `resources/lang/de/de.json`
+* `resources/lang/de.json`
 
 Some other example languages:
 
