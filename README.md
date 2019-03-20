@@ -1,6 +1,6 @@
 # Laravel localize
 
-![laravel-localize](https://user-images.githubusercontent.com/11052725/42563180-ddf544da-84fd-11e8-9097-1257cdba58a4.gif)
+![laravel-localize](https://user-images.githubusercontent.com/11052725/54703100-7550eb80-4b38-11e9-82e1-8163cfddae91.gif)
 
 This package installs a global command that lets you easily install language files in your Laravel application.
 
