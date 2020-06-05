@@ -55,8 +55,7 @@ class LanguageFilesInstaller
     {
         $httpStatus = get_headers($this->getGithubRepositoryPath() . '/' . $file)[0];
 
-        return (bool)strpos($httpStatus, '200');
-        return (bool)strpos($httpStatus, '200') || (bool) strpos($httpStatus, '301');
+        return (bool)strpos($httpStatus, '200') || (bool)strpos($httpStatus, '301');
     }
 
     protected function getLanguageFileContents($file)
