@@ -21,7 +21,7 @@ class LocalizeCommand extends Command
         if (!$this->isLaravelApplication()) {
             $output->writeLn('<error>Not a Laravel application</error>');
 
-            return 0;
+            return 1;
         }
 
         $languageFilesInstaller = new LanguageFilesInstaller($input->getArgument('lang'));
@@ -29,7 +29,7 @@ class LocalizeCommand extends Command
         if (!$languageFilesInstaller->languageExists()) {
             $output->writeLn('<error>Couldn\'t find "' . $input->getArgument('lang') . '" language files.</error>');
 
-            return 0;
+            return 1;
         }
 
         $output->write('1. Creating the language directory...');
@@ -47,6 +47,8 @@ class LocalizeCommand extends Command
         $output->writeLn('<info>Successfully installed the "' . $input->getArgument('lang') . '" language files!</info>');
         $output->writeln('<info>Don\'t forget to change the value of the locale key in "config/app.php".</info>');
         $output->writeln('<info>Happy coding!</info>');
+
+        return 0;
     }
 
     protected function isLaravelApplication()
