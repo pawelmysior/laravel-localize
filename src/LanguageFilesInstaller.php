@@ -33,17 +33,18 @@ class LanguageFilesInstaller
     public function downloadPhpLanguageFiles()
     {
         foreach ($this->files as $file) {
-            $this->downloadLanguageFile('/src/' . $this->lang . '/' . $file, $this->lang . '/' . $file);
+            $this->downloadLanguageFile($this->lang . '/' . $file, $this->lang . '/' . $file);
         }
     }
 
     public function downloadJsonLanguageFile()
     {
-        $this->downloadLanguageFile('/json/' . $this->lang . '.json', $this->lang . '.json');
+        $this->downloadLanguageFile($this->lang.'/'.$this->lang . '.json', $this->lang . '.json');
     }
 
     protected function downloadLanguageFile($sourceFile, $destinationFile)
     {
+        var_dump($sourceFile);
         if ($this->fileExists($sourceFile)) {
             $contents = $this->getLanguageFileContents($sourceFile);
 
@@ -70,7 +71,7 @@ class LanguageFilesInstaller
 
     protected function getGithubRepositoryPath()
     {
-        return 'https://raw.githubusercontent.com/caouecs/Laravel-lang/master';
+        return 'https://raw.githubusercontent.com/Laravel-Lang/lang/master/locales';
     }
 
     protected function getSpecificLanguageDirectoryPath()
